@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {
   ShieldCheck,
@@ -7,7 +8,7 @@ import {
   Smartphone,
   Sun,
   Moon,
-  Sparkles
+  Users
 } from 'lucide-react';
 import { HealthStatus } from '../types';
 
@@ -29,14 +30,14 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'mobile', label: 'Mobile Auth Flow', icon: <Smartphone className="w-4 h-4" /> },
     { id: 'generate', label: 'Generate OTP', icon: <KeyRound className="w-4 h-4" /> },
     { id: 'verify', label: 'Verify OTP', icon: <CheckCircle className="w-4 h-4" /> },
-    { id: 'history', label: 'History & Logs', icon: <History className="w-4 h-4" /> }
+    { id: 'history', label: 'History & Logs', icon: <History className="w-4 h-4" /> },
+    { id: 'players', label: 'Players', icon: <Users className="w-4 h-4" /> }
   ];
 
   return (
     <header className="sticky top-0 z-30 border-b border-slate-200/80 dark:border-slate-800/80 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
           <div
             onClick={() => onSelectTab('mobile')}
             className="flex items-center gap-3 cursor-pointer group"
@@ -59,7 +60,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
           </div>
 
-          {/* Navigation Tabs */}
           <nav className="hidden md:flex items-center gap-1.5">
             {navItems.map((item) => {
               const active = currentTab === item.id;
@@ -80,7 +80,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             })}
           </nav>
 
-          {/* Right Utilities (Theme Toggle) */}
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={onToggleTheme}
@@ -92,7 +91,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           </div>
         </div>
 
-        {/* Mobile Navigation Bar */}
         <div className="flex md:hidden overflow-x-auto py-2 gap-1 border-t border-slate-100 dark:border-slate-800 scrollbar-none">
           {navItems.map((item) => {
             const active = currentTab === item.id;

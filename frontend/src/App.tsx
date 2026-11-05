@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Toast, ToastProps } from './components/Toast';
@@ -5,6 +6,7 @@ import { MobileOtpFlow } from './components/MobileOtpFlow';
 import { GenerateOtp } from './pages/GenerateOtp';
 import { VerifyOtp } from './pages/VerifyOtp';
 import { History } from './pages/History';
+import { Players } from './pages/Players';
 import { ApiService } from './services/api';
 import { HealthStatus } from './types';
 
@@ -14,7 +16,6 @@ export function App() {
   const [toasts, setToasts] = useState<Omit<ToastProps, 'onClose'>[]>([]);
   const [health, setHealth] = useState<HealthStatus | null>(null);
 
-  // Dark mode with localStorage
   const [isDark, setIsDark] = useState<boolean>(() => {
     const saved = localStorage.getItem('theme');
     if (saved) return saved === 'dark';
@@ -55,7 +56,6 @@ export function App() {
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
-      {/* Toast Notification Stack */}
       <div className="fixed top-20 right-4 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-none">
         {toasts.map((toast) => (
           <div key={toast.id} className="pointer-events-auto">
@@ -69,7 +69,6 @@ export function App() {
         ))}
       </div>
 
-      {/* Top Navigation Bar */}
       <Navbar
         currentTab={currentTab}
         onSelectTab={handleNavigate}
@@ -78,14 +77,15 @@ export function App() {
         health={health}
       />
 
-      {/* Main Content Area */}
       <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {currentTab === 'mobile' && (
           <MobileOtpFlow onNotify={addToast} />
         )}
+
         {currentTab === 'generate' && (
           <GenerateOtp onNavigate={handleNavigate} onNotify={addToast} />
         )}
+
         {currentTab === 'verify' && (
           <VerifyOtp
             initialState={verifyState}
@@ -93,12 +93,16 @@ export function App() {
             onNotify={addToast}
           />
         )}
+
         {currentTab === 'history' && (
           <History onNavigate={handleNavigate} onNotify={addToast} />
         )}
+
+        {currentTab === 'players' && (
+          <Players />
+        )}
       </main>
 
-      {/* Minimal Footer */}
       <footer className="border-t border-slate-200/80 dark:border-slate-800/80 bg-white/50 dark:bg-slate-900/50 py-4 text-center text-xs text-slate-500 dark:text-slate-400">
         <div className="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p>© {new Date().getFullYear()} OTP Testing Studio — Standalone Frontend Application</p>
